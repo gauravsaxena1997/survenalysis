@@ -9,7 +9,7 @@ import { ResponseService } from '../services/response.service';
 import { SurveyService } from '../services/survey.service';
 import { SharedService } from '../shared/shared.service';
 
-import { LOCALSTORAGE_KEYS, QUESTION_TYPES } from '../shared/constants';
+import { LOCALSTORAGE_KEYS, QUESTION_TYPES, MESSAGES } from '../shared/constants';
 
 @Component({
   selector: 'app-survey',
@@ -21,15 +21,14 @@ export class SurveyComponent implements OnInit {
   public survey: Survey;
   public questionTypesObj: any;
   private response: any = {};
-  public alreadyAttended: boolean = false;
+  public message: string = '';
   public isPreview: string|null = null;
 
   constructor(
     private surveyService: SurveyService,
     private sharedService: SharedService,
     private responseService: ResponseService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -38,13 +37,17 @@ export class SurveyComponent implements OnInit {
     this.isPreview = this.route.snapshot.queryParamMap.get('preview');
 
     if (!this.isPreview) {
-      this.alreadyAttended = this.checkForAlreadyAttended(Number(surveyId));
-      if (this.alreadyAttended) {
+      if (this.checkForAlreadyAttended(Number(surveyId))) {
+        this.message = MESSAGES['RESPONSE_CAPTURED'];
         return;
       }
     }
 
     this.survey = this.surveyService.getSurveyById(Number(surveyId))
+    if (!this.survey) {
+      this.message = MESSAGES['SURVEY_NOT_AVAILABLE'];
+      return;
+    }
     this.questionTypesObj =  this.sharedService.covertArrayToObj(QUESTION_TYPES, 'name', 'id')
   }
 
@@ -70,7 +73,7 @@ export class SurveyComponent implements OnInit {
       responses: this.survey.responses + 1
     })
     this.responseService.submitResponse(this.survey.id, finalData);
-    this.alreadyAttended = true;
+    this.message = MESSAGES['RESPONSE_CAPTURED'];
     this.setOnLocalStorage();
   }
 

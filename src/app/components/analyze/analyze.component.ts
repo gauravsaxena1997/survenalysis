@@ -4,6 +4,7 @@ import Question from 'src/app/interfaces/question';
 import Survey from 'src/app/interfaces/survey';
 import { ResponseService } from 'src/app/services/response.service';
 import { SurveyService } from 'src/app/services/survey.service';
+import { MESSAGES } from '../../shared/constants';
 
 @Component({
   selector: 'app-analyze',
@@ -16,7 +17,6 @@ export class AnalyzeComponent implements OnInit {
   public displayData: Array<any> = [];
   public questionTypesObj: any = this.responseService.questionTypesObj;
   public questionTypesNameMapping: any = this.responseService.questionTypesNameMapping;
-  public surveyLink: string;
   public message: string = '';
 
   constructor(
@@ -28,18 +28,17 @@ export class AnalyzeComponent implements OnInit {
 
   ngOnInit(): void {
     const surveyId: string|null = this.route.snapshot.paramMap.get('id');
-    if (!surveyId) return
+    if (!surveyId) return;
     this.survey = this.surveyService.getSurveyById(Number(surveyId));
     if (!this.survey) {
-      this.message = 'Survey not exists';
+      this.message = MESSAGES['SURVEY_NOT_AVAILABLE'];
       return;
     }
     this.response = this.responseService.getResponseBySurveyId(Number(surveyId));
     if (!this.response) {
-      this.message = 'No response yet';
+      this.message = MESSAGES['NO_RESPONSE_YET'];
       return;
     }
-    this.surveyLink = this.surveyService.getSurveyLink(this.survey.id);
     this.prepareData();
   }
 

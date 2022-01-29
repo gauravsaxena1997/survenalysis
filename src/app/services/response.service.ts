@@ -97,6 +97,7 @@ export class ResponseService {
       ]
     }
   };
+
   public questionTypesObj: any;
   public questionTypesNameMapping: any;
 

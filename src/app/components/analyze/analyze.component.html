@@ -13,8 +13,8 @@
   <div class="mat-subheading-2"> <b> Created On: </b> {{ survey.createdOn | date }} </div>
   <div class="mat-subheading-2">
     <b> Survey Link: </b>
-    <a style="color: white;" [attr.href]="surveyLink" target="_blank" [title]="surveyLink">
-      {{surveyLink}}
+    <a style="color: white;" [attr.href]="survey.link" target="_blank" [title]="survey.link">
+      {{survey.link}}
     </a>
   </div>
   <mat-divider></mat-divider>

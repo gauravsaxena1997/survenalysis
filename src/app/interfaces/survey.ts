@@ -5,5 +5,7 @@ export default interface Survey {
   name: string;
   responses: number,
   createdOn: Date,
-  questions: Array<question>
+  questions: Array<question>,
+  link: string;
+  previewLink: string;
 }

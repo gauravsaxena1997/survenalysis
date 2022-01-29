@@ -1,9 +1,3 @@
-// export const QUESTION_TYPES = {
-//   'singlePunch': 1,
-//   'multiPunch': 2,
-//   'openText': 3
-// }
-
 export const QUESTION_TYPES = [
   {
     id: 1,
@@ -24,4 +18,10 @@ export const LOCALSTORAGE_KEYS = {
   surveys: 'surveys',
   attended: 'attendedSurveysOfUser',
   response: 'response'
+};
+
+export const MESSAGES = {
+  SURVEY_NOT_AVAILABLE: 'This Survey is not available.',
+  RESPONSE_CAPTURED: 'Your response is successfully captured.',
+  NO_RESPONSE_YET: 'No response yet.'
 };

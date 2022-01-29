@@ -13,6 +13,8 @@ export class SurveyService {
       "id": 1,
       "name": "Social Impact of COVID-19 Survey",
       "createdOn": new Date("2022-01-29T14:12:11.565Z"),
+      "link": "https://survenalysis.web.app/survey/1",
+      "previewLink": "https://survenalysis.web.app/survey/1?preview=true",
       "questions": [
         {
           "id": 1,
@@ -104,6 +106,8 @@ export class SurveyService {
       "id": 2,
       "name": "Distance learning survey",
       "createdOn": new Date("2022-01-29T14:41:32.920Z"),
+      "link": "https://survenalysis.web.app/survey/2",
+      "previewLink": "https://survenalysis.web.app/survey/2?preview=true",
       "questions": [
         {
           "id": 1,
@@ -189,6 +193,8 @@ export class SurveyService {
       "responses": 5
     }
   ];
+
+
   private activeSurveyId: number = -1;
 
   constructor(private router: Router) { }
@@ -224,10 +230,15 @@ export class SurveyService {
     localStorage.setItem(LOCALSTORAGE_KEYS['surveys'], JSON.stringify(this.surveyData))
   }
 
-  public removeSurveyById(id: number): void {
+  public removeSurveyById(id: number): Array<Survey> {
     const index: number = this.surveys.findIndex((survey: Survey) => survey.id === id)
     this.surveyData.splice(index, 1);
-    localStorage.setItem(LOCALSTORAGE_KEYS['surveys'], JSON.stringify(this.surveyData));
+    if (!this.surveyData.length) {
+      localStorage.removeItem(LOCALSTORAGE_KEYS['surveys']);
+    } else {
+      localStorage.setItem(LOCALSTORAGE_KEYS['surveys'], JSON.stringify(this.surveyData));
+    }
+    return this.surveyData;
   }
 
   public getNewSurveyId(): number {
@@ -251,5 +262,27 @@ export class SurveyService {
       this.router.createUrlTree(['survey', surveyId])
     );
     return `${window.location.protocol}//${window.location.host}${url}`;
+  }
+
+  public getSurveyPreviewLink(surveyId: number): string {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['survey', surveyId], {queryParams: {preview: true}})
+    );
+    return `${window.location.protocol}//${window.location.host}${url}`;
+  }
+
+  public createSurveyLinks(surveyId: number): any {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['survey', surveyId])
+    );
+
+    const previewUrl = this.router.serializeUrl(
+      this.router.createUrlTree(['survey', surveyId], {queryParams: {preview: true}})
+    );
+
+    return {
+      link: `${window.location.protocol}//${window.location.host}${url}`,
+      previewLink: `${window.location.protocol}//${window.location.host}${previewUrl}`
+    }
   }
 }

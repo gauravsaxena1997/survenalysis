@@ -10,36 +10,6 @@ import { SurveyService } from '../../services/survey.service';
 })
 export class DashboardComponent implements OnInit {
   public surveys: Array<Survey>;
-  // public surveys = [
-  //   {
-  //     id: 1,
-  //     status: 1,
-  //     name: 'Test 1',
-  //     createdDate: new Date(),
-  //     responses: 7
-  //   },
-  //   {
-  //     id: 2,
-  //     status: 1,
-  //     name: 'Test 2',
-  //     createdDate: new Date(),
-  //     responses: 3
-  //   },
-  //   {
-  //     id: 3,
-  //     status: 0,
-  //     name: 'Test 3',
-  //     createdDate: new Date(),
-  //     responses: 1
-  //   },
-  //   {
-  //     id: 4,
-  //     status: 1,
-  //     name: 'Test 4',
-  //     createdDate: new Date(),
-  //     responses: 10
-  //   }
-  // ]
 
   constructor(
     private surveyService: SurveyService,
@@ -48,19 +18,22 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.surveys = this.surveyService.getSurveys()
+    this.surveys = this.surveyService.getSurveys();
   }
 
   public removeSurveyById(surveyId: number): void {
-    this.surveyService.removeSurveyById(surveyId);
+    this.surveys = this.surveyService.removeSurveyById(surveyId);
   }
 
   public editSurveyById(surveyId: number): void {
-    this.router.navigate(['/survey-scripting', surveyId])
+    this.router.navigate(['/survey-scripting', surveyId]);
   }
 
   public analyse(surveyId: number): void {
     this.router.navigate(['/analyse', surveyId]);
+  }
 
+  public preview(previewLink: string): void {
+    window.open(previewLink, '_blank');
   }
 }

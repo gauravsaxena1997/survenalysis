@@ -32,12 +32,15 @@ export class HeaderComponent implements OnInit {
 
   public createSurvey() {
     const id = this.surveyService.getNewSurveyId()
+    const { link, previewLink }: any = this.surveyService.createSurveyLinks(id);
     const newSurvey = {
       id,
       name: `Test Survey ${id}`,
       createdOn: new Date(),
       questions: [],
-      responses: 0
+      responses: 0,
+      link,
+      previewLink
     };
     this.surveyService.addNewSurvey(newSurvey)
     this.router.navigate(['/survey-scripting', id])

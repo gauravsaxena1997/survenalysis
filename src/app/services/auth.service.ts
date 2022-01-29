@@ -21,6 +21,4 @@ export class AuthService {
     localStorage.removeItem(LOCALSTORAGE_KEYS['auth']);
     this.router.navigate(['login']);
   }
-
-
 }

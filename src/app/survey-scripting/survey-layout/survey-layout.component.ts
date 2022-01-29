@@ -58,15 +58,11 @@ export class SurveyLayoutComponent implements OnInit {
   }
 
   public preview(): void {
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree(['survey', this.survey.id], {queryParams: {preview: true}})
-    );
-    window.open(url, '_blank');
+    window.open(this.survey.previewLink, '_blank');
   }
 
   public copySurveyLink() {
-    const link: string = this.surveyService.getSurveyLink(this.survey.id);
-    this.clipboard.copy(link);
+    this.clipboard.copy(this.survey.link);
   }
 
   public canExit(): boolean {

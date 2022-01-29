@@ -8,6 +8,7 @@
     <mat-card-subtitle> {{ survey.createdOn | date }} </mat-card-subtitle>
     <mat-card-actions align="end">
       <button (click)="editSurveyById(survey.id)" mat-button>Edit</button>
+      <button (click)="preview(survey.previewLink)" mat-button [disabled]="!survey.questions.length">Preview</button>
       <button (click)="analyse(survey.id)" mat-button [disabled]="!survey.responses">Analyze</button>
       <button (click)="removeSurveyById(survey.id)" mat-button>Delete</button>
     </mat-card-actions>

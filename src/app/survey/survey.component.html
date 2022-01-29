@@ -1,13 +1,13 @@
-<div *ngIf="alreadyAttended" class="center mat-display-1">
-  Your response is successfully captured.
+<div *ngIf="message" class="center mat-display-1">
+  {{message}}
 </div>
 
-<div *ngIf="survey && !alreadyAttended" class="container">
+<div *ngIf="survey && !message" class="container">
   <h1 *ngIf="!survey.questions.length"> No questions in this survey! </h1>
 
   <div *ngIf="survey.questions.length">
 
-    <h1> {{ survey.name }} </h1>
+    <div class="mat-display-2"> {{ survey.name }} </div>
     <div class="question" *ngFor="let question of survey.questions">
         <app-single-punch
           [question]="question"
