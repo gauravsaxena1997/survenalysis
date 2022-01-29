@@ -1,0 +1,47 @@
+gaurav@gaurav-ongraph:~/learning/survenalysis$ ng add @angular/material
+ℹ Using package manager: npm
+✔ Found compatible package version: @angular/material@13.1.1.
+✔ Package information loaded.
+
+The package @angular/material@13.1.1 will be installed and executed.
+Would you like to proceed? Yes
+✔ Package successfully installed.
+? Choose a prebuilt theme name, or "custom" for a custom theme: Pink/Blue Grey     [ Preview: https://material.angular.io?theme=pink-bluegrey ]
+? Set up global Angular Material typography styles? Yes
+? Set up browser animations for Angular Material? Yes
+UPDATE package.json (1141 bytes)
+✔ Packages installed successfully.
+UPDATE src/app/app.module.ts (502 bytes)
+UPDATE angular.json (3405 bytes)
+UPDATE src/index.html (578 bytes)
+UPDATE src/styles.scss (181 bytes)
+
+ng g c survey/survey -m survey --flat --skip-tests
+ng g c survey/single-punch -m survey --skip-tests
+ng g c survey/multi-punch -m survey --skip-tests
+ng g c survey/open-text -m survey --skip-tests
+
+Wild card routes
+ng g c page-not-found -m app --skip-tests
+
+template driven form
+validation
+ng g c login -m app --skip-tests
+ng g s services/auth --skip-tests
+auth service
+logout on header
+
+guards
+canactive
+ng g g guards/auth --skip-tests
+
+candeactive
+ng g g guards/protect-form-data --skip-tests
+
+analyse component
+ng g c components/analyze --skip-tests -m app
+
+
+
+https://material.io/archive/guidelines/style/color.html#color-color-palette
+https://stackoverflow.com/questions/41684093/setting-angular-material-2-theme-to-dark-theme

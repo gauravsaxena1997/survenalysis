@@ -1,0 +1,40 @@
+<div *ngIf="alreadyAttended" class="center mat-display-1">
+  Your response is successfully captured.
+</div>
+
+<div *ngIf="survey && !alreadyAttended" class="container">
+  <h1 *ngIf="!survey.questions.length"> No questions in this survey! </h1>
+
+  <div *ngIf="survey.questions.length">
+
+    <h1> {{ survey.name }} </h1>
+    <div class="question" *ngFor="let question of survey.questions">
+        <app-single-punch
+          [question]="question"
+          (submitAnswer)="updateResponse($event, question.id)"
+          *ngIf="question.type === questionTypesObj['Single Punch']"
+        >
+        </app-single-punch>
+
+        <app-multi-punch
+          [question]="question"
+          (submitAnswer)="updateResponse($event, question.id)"
+          *ngIf="question.type === questionTypesObj['Multi Punch']"
+        >
+        </app-multi-punch>
+
+        <app-open-text
+          [question]="question"
+          (submitAnswer)="updateResponse($event, question.id)"
+          *ngIf="question.type === questionTypesObj['Open Text']"
+        >
+        </app-open-text>
+    </div>
+
+    <button [disabled]="isPreview" (click)="submit()" mat-stroked-button color="primary">
+      Submit your response
+    </button>
+
+  </div>
+</div>
+

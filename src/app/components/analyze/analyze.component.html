@@ -1,0 +1,51 @@
+<div *ngIf="message" class="center mat-display-2">
+  {{ message }}
+</div>
+
+
+
+<div *ngIf="displayData.length" class="container">
+  <div class="mat-display-1" style="margin-bottom: 10px;">
+    <b>Survey Name: </b> {{ survey.name }}
+    <mat-icon (click)="editSurvey()">edit</mat-icon>
+  </div>
+  <div class="mat-subheading-2"> <b> Total responses: </b> {{ survey.responses }} </div>
+  <div class="mat-subheading-2"> <b> Created On: </b> {{ survey.createdOn | date }} </div>
+  <div class="mat-subheading-2">
+    <b> Survey Link: </b>
+    <a style="color: white;" [attr.href]="surveyLink" target="_blank" [title]="surveyLink">
+      {{surveyLink}}
+    </a>
+  </div>
+  <mat-divider></mat-divider>
+
+  <mat-card *ngFor="let question of displayData" class="response-card">
+    <mat-card-title> {{ question.questionText }} </mat-card-title>
+    <mat-card-subtitle> {{ questionTypesNameMapping[question.questionType] }} </mat-card-subtitle>
+
+    <mat-card-content *ngIf="question.questionType === questionTypesObj['Open Text']">
+      <mat-list role="list">
+        <mat-list-item *ngFor="let response of question.responses" role="listitem">
+          {{ response }}
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="question.questionType !== questionTypesObj['Open Text']">
+      <mat-list role="list">
+        <mat-list-item *ngFor="let response of question.responses" role="listitem">
+
+          <mat-grid-list cols="3" style="position: unset;">
+            <mat-grid-tile> {{ response.optionText }} </mat-grid-tile>
+            <mat-grid-tile> {{ response.percentage }} </mat-grid-tile>
+            <mat-grid-tile>
+              <mat-progress-bar style="height: 20px;width: 40%;" mode="determinate" value="{{response.percentage}}"></mat-progress-bar>
+            </mat-grid-tile>
+          </mat-grid-list>
+
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+</div>

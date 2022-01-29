@@ -1,0 +1,24 @@
+<div class="mat-display-1" *ngIf="!questions.length">
+  No questions are created yet.
+</div>
+
+
+
+<div  *ngIf="questions.length">
+  <h2 class="heading"> Question List </h2>
+  <div class="question-list">
+    <mat-card class="question-card" *ngFor="let question of questions; let i = index">
+      <mat-card-title>{{question.text}} ({{questionTypesObj[question.type]}}) </mat-card-title>
+      <mat-card-subtitle>{{question.createdOn|date}}</mat-card-subtitle>
+      <mat-card-content>
+        <ul>
+          <li *ngFor="let option of question.options"> {{option}} </li>
+        </ul>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button (click)="editQuestion(question)">Edit</button>
+        <button mat-button (click)="removeQuestionByIndex(i)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

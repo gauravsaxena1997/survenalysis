@@ -1,0 +1,50 @@
+<div class="container">
+  <form #loginForm="ngForm" (ngSubmit)="login(loginForm.value)" class="form">
+
+    <div class="mat-display-1" style="margin-bottom: 5px;">User Name</div>
+
+    <mat-form-field floatLabel="never" class="form-element">
+      <input
+        type="text"
+        matInput
+        name="userName"
+        placeholder="admin"
+        ngModel
+        required
+        #name="ngModel"
+        pattern="[a-zA-z]+$"
+      >
+    </mat-form-field>
+    <mat-error *ngIf="name.invalid && name.touched">
+      Username is required.
+    </mat-error>
+
+    <div class="mat-display-1" style="margin-bottom: 5px;">Password</div>
+
+    <mat-form-field floatLabel="never" class="form-element">
+      <input
+        type="password"
+        matInput
+        name="password"
+        placeholder="qwer4321"
+        ngModel
+        required
+        #password="ngModel"
+      >
+    </mat-form-field>
+    <mat-error *ngIf="password.invalid && password.touched">
+      Password is required.
+    </mat-error>
+
+    <div class="form-element">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="button"
+        [disabled]="loginForm.invalid"
+      >Login</button>
+    </div>
+
+  </form>
+</div>

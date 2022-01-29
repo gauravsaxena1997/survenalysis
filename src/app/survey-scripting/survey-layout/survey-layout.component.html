@@ -1,0 +1,33 @@
+
+<div class="container" *ngIf="survey">
+  <div class="header">
+    <mat-form-field class="survey-name" appearance="fill">
+      <mat-label>Survey Name</mat-label>
+      <input matInput placeholder="Enter your survey name here..." [formControl]="surveyName">
+    </mat-form-field>
+
+    <button (click)="preview()" class="buttons" mat-stroked-button color="primary">Preview</button>
+    <button (click)="copySurveyLink()" class="buttons" mat-stroked-button color="primary">Copy Link</button>
+  </div>
+  <div>
+    <div class="row">
+      <div class="col">
+        <app-create-question
+          [question] = "questionForEdit"
+          (newQuestionEvent)="addQuestion($event)"
+          (updateQuestionEvent)="updateQuestion($event)"
+        >
+        </app-create-question>
+      </div>
+
+      <div class="col">
+        <app-question-list
+          (removeQuestionEvent)="removeQuestionByIndex($event)"
+          (editQuestionEvent)="editQuestion($event)"
+          [questions]="survey.questions"
+        >
+        </app-question-list>
+      </div>
+    </div>
+  </div>
+</div>

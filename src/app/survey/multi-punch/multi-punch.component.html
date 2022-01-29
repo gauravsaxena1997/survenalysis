@@ -1,0 +1,14 @@
+<div *ngIf="question">
+  <h2> {{ question.text }} </h2>
+
+  <section class="example-section" [formGroup]="optionForm">
+    <mat-checkbox class="example-margin" *ngFor="let option of question.options" formControlName="{{option}}"> {{ option }}</mat-checkbox>
+  </section>
+  <mat-divider></mat-divider>
+</div>
+
+
+
+
+
+

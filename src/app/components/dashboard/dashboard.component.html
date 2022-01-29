@@ -1,0 +1,15 @@
+<div *ngIf="!surveys.length" class="not-available mat-display-1">
+  No surveys are available.
+</div>
+
+<div class="dashboard" *ngFor="let survey of surveys">
+  <mat-card>
+    <mat-card-title> {{ survey.name }} ( {{ survey.responses }} responses ) </mat-card-title>
+    <mat-card-subtitle> {{ survey.createdOn | date }} </mat-card-subtitle>
+    <mat-card-actions align="end">
+      <button (click)="editSurveyById(survey.id)" mat-button>Edit</button>
+      <button (click)="analyse(survey.id)" mat-button [disabled]="!survey.responses">Analyze</button>
+      <button (click)="removeSurveyById(survey.id)" mat-button>Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

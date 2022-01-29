@@ -1,0 +1,42 @@
+<h2 class="heading">
+  {{ title }}
+</h2>
+
+<form [formGroup]="questionForm" class="question-form" (submit)="createQuestion()">
+  <button mat-raised-button color="primary" class="create-button" [disabled]="!questionForm.valid" type="submit">
+    {{ isEdit ? 'Update' : 'Create' }}
+  </button>
+
+  <div style="width: 100%;">
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Question Text</mat-label>
+      <input matInput type="text" formControlName="text">
+      <mat-error *ngIf="questionForm.get('text')?.hasError('required')">
+        Question Text is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-radio-group formControlName="type" aria-label="Select an option">
+      <mat-radio-button *ngFor="let quesType of questionTypes " [value]="quesType.id"> {{ quesType.name }}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div *ngIf="questionForm.get('type')?.value != 3">
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Add a option</mat-label>
+      <input matInput type="text" formControlName="newOptionText">
+      <mat-icon (click)="addOption()" matSuffix>add</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div class="example-list" cdkDropList *ngIf="options.controls.length" (cdkDropListDropped)="drop($event)">
+    <div class="options-container" cdkDrag formArrayName="options" *ngFor="let option of options.controls; let i = index">
+      <div class="options">
+        <span style="margin-right: 10px;">{{ option.value }}</span>
+        <mat-icon color="primary" (click)="removeOption(i)">delete</mat-icon>
+      </div>
+    </div>
+  </div>
+</form>

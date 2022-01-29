@@ -1,0 +1,15 @@
+<div *ngIf="question">
+  <h2> {{ question.text }} </h2>
+
+  <mat-radio-group
+    aria-labelledby="example-radio-group-label"
+    class="example-radio-group"
+    [formControl]="answer">
+    <mat-radio-button class="example-radio-button" *ngFor="let option of question.options" [value]="option">
+      {{option}}
+    </mat-radio-button>
+  </mat-radio-group>
+
+  <mat-divider></mat-divider>
+</div>
+

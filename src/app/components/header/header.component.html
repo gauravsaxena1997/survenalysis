@@ -1,0 +1,19 @@
+<mat-toolbar *ngIf="!currentRoute?.includes('/survey/')" color="primary">
+  <button mat-icon-button>
+    <mat-icon>analytics</mat-icon>
+  </button>
+  <span>Survenalysis</span>
+  <span class="spacer"></span>
+
+  <div *ngIf="currentRoute !== '/login'">
+    <button *ngIf="!currentRoute?.includes('/survey-scripting')" (click)="createSurvey()" mat-icon-button>
+      <mat-icon>add</mat-icon>
+    </button>
+    <button routerLink="" mat-icon-button>
+      <mat-icon>home</mat-icon>
+    </button>
+    <button (click)="logout()" mat-icon-button>
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

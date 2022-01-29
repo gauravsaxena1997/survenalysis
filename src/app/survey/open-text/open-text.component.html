@@ -1,0 +1,12 @@
+<div *ngIf="question">
+  <h2> {{ question.text }} </h2>
+
+  <p>
+    <mat-form-field class="answer" appearance="fill">
+      <textarea matInput [formControl]="answer" placeholder="Type your answer here..."></textarea>
+    </mat-form-field>
+  </p>
+
+  <mat-divider></mat-divider>
+
+</div>
