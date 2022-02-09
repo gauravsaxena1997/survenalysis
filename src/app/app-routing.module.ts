@@ -28,8 +28,8 @@ const routes: Routes = [
     canDeactivate: [ProtectFormDataGuard],
   },
   {
-    path: 'survey/:id',
-    component: SurveyComponent
+    path: 'survey',
+    loadChildren: () => import('./survey/survey.module').then(m => m.SurveyModule)
   },
   {
     path: 'analyse/:id',

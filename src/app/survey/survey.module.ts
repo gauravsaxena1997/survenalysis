@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './../material.module';
+import { SurveyRoutingModule } from './survey-routing.module';
 
 import { SurveyComponent } from './survey.component';
 import { SinglePunchComponent } from './single-punch/single-punch.component';
@@ -19,7 +20,8 @@ import { OpenTextComponent } from './open-text/open-text.component';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SurveyRoutingModule
   ]
 })
 export class SurveyModule { }
