@@ -18,11 +18,19 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.surveys = this.surveyService.getSurveys();
+    this.surveyService.getSurveys().subscribe((surveys: Array<Survey>) => {
+      this.surveys = surveys
+    });
   }
 
   public removeSurveyById(surveyId: string): void {
-    this.surveys = this.surveyService.removeSurveyById(surveyId);
+    this.surveyService.removeSurveyById(surveyId).subscribe((survey: Survey) => {
+      console.log('survey', survey);
+
+      this.surveyService.getSurveys().subscribe((surveys: Array<Survey>) => {
+        this.surveys = surveys;
+      })
+    })
   }
 
   public editSurveyById(surveyId: string): void {

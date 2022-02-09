@@ -4,11 +4,11 @@ import { FormControl } from '@angular/forms';
 import { Clipboard } from '@angular/cdk/clipboard';
 
 import { SurveyService } from './../../services/survey.service';
-import { QuestionService } from '../../services/question.service';
 
 import Survey from '../../interfaces/survey';
 import Question from '../../interfaces/question';
 import { CreateQuestionComponent } from '../create-question/create-question.component';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-survey-layout',
@@ -25,8 +25,6 @@ export class SurveyLayoutComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private route: ActivatedRoute,
-    private router: Router,
-    private questionService: QuestionService,
     private clipboard: Clipboard
   ) { }
 
@@ -34,23 +32,41 @@ export class SurveyLayoutComponent implements OnInit {
     const surveyId: string|null = this.route.snapshot.paramMap.get('id');
     if (!surveyId) return
     this.surveyService.setActiveSurveyId(surveyId)
-    this.survey = this.surveyService.getSurveyById(surveyId)
-    this.surveyName.setValue(this.survey.name)
-    this.surveyName.valueChanges.subscribe((updatedName: string) => {
-      this.surveyService.updateSurveyName(updatedName);
-    })
+    this.surveyService.getSurveyById(surveyId).subscribe((survey: Survey) => {
+      this.survey = survey;
+      this.surveyName.setValue(this.survey.name)
+      this.surveyName.valueChanges.pipe(
+        debounceTime(500)
+      ).subscribe((updatedName: string) => {
+        this.surveyService.updateSurveyName(updatedName, this.survey).subscribe();
+      });
+    });
   }
 
   public addQuestion(newQuestion: Question) {
-    this.survey = this.questionService.addQuestionInSurvey(newQuestion)
+    this.survey.questions = [
+      ...this.survey.questions,
+      newQuestion
+    ];
+    this.surveyService.updateSurveyById(this.survey).subscribe((survey: Survey) => {
+      console.log('survey', survey);
+      this.survey = survey
+    });
   }
 
   public updateQuestion(question: Question) {
-    this.survey = this.questionService.updateQuestionInSurvey(question)
+    const questionIndex = this.survey.questions.findIndex(question => question.id === question.id)
+    this.survey.questions.splice(questionIndex, 1, question)
+    this.surveyService.updateSurveyById(this.survey).subscribe((survey: Survey) => {
+      this.survey = survey;
+    });
   }
 
   public removeQuestionByIndex(index: number) {
-    this.survey = this.questionService.removeQuestionByIndex(index)
+    this.survey.questions.splice(index, 1);
+    this.surveyService.updateSurveyById(this.survey).subscribe((survey: Survey) => {
+      this.survey = survey
+    })
   }
 
   public editQuestion(question: Question) {

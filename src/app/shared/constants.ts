@@ -15,7 +15,6 @@ export const QUESTION_TYPES = [
 
 export const LOCALSTORAGE_KEYS = {
   auth: 'isAuthenticated',
-  surveys: 'surveys',
   attended: 'attendedSurveysOfUser',
   response: 'response'
 };

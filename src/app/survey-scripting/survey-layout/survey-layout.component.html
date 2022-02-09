@@ -13,7 +13,9 @@
     <div class="row">
       <div class="col">
         <app-create-question
+          [surveyId] = "survey.id"
           [question] = "questionForEdit"
+          [totalquestions] = "survey.questions.length"
           (newQuestionEvent)="addQuestion($event)"
           (updateQuestionEvent)="updateQuestion($event)"
         >

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import Question from '../interfaces/question';
 import Survey from '../interfaces/survey';
@@ -45,12 +45,14 @@ export class SurveyComponent implements OnInit {
       }
     }
 
-    this.survey = this.surveyService.getSurveyById(surveyId)
-    if (!this.survey) {
-      this.message = MESSAGES['SURVEY_NOT_AVAILABLE'];
-      return;
-    }
-    this.questionTypesObj =  this.sharedService.covertArrayToObj(QUESTION_TYPES, 'name', 'id')
+    this.surveyService.getSurveyById(surveyId).subscribe((survey: Survey) => {
+      this.survey = survey;
+      if (!this.survey) {
+        this.message = MESSAGES['SURVEY_NOT_AVAILABLE'];
+        return;
+      }
+      this.questionTypesObj =  this.sharedService.covertArrayToObj(QUESTION_TYPES, 'name', 'id')
+    })
   }
 
   public updateResponse(event: any, questionId: number): void {
@@ -73,7 +75,7 @@ export class SurveyComponent implements OnInit {
     this.surveyService.updateSurveyById({
       ...this.survey,
       responses: this.survey.responses + 1
-    })
+    }).subscribe();
     this.responseService.submitResponse(this.survey.id, finalData);
     this.message = MESSAGES['RESPONSE_CAPTURED'];
     this.toastrService.success('Thanks!', 'Your response is successfully captured.')

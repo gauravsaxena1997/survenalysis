@@ -1,8 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges  } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, OnChanges  } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
-
-import { QuestionService } from '../../services/question.service';
 
 import Question from '../../interfaces/question';
 import { QUESTION_TYPES } from '../../shared/constants';
@@ -12,9 +10,11 @@ import { QUESTION_TYPES } from '../../shared/constants';
   templateUrl: './create-question.component.html',
   styleUrls: ['./create-question.component.scss']
 })
-export class CreateQuestionComponent implements OnInit {
+export class CreateQuestionComponent implements OnInit, OnChanges {
 
+  @Input() surveyId: string;
   @Input() question: Question;
+  @Input() totalquestions: number;
   @Output() newQuestionEvent = new EventEmitter<Question>();
   @Output() updateQuestionEvent = new EventEmitter<Question>();
 
@@ -22,7 +22,7 @@ export class CreateQuestionComponent implements OnInit {
   public title: string = 'Create new question';
   public questionTypes: Array<any>;
 
-  constructor(private questionService: QuestionService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.questionTypes = QUESTION_TYPES;
@@ -87,7 +87,7 @@ export class CreateQuestionComponent implements OnInit {
   public createQuestion() {
     const questionForm = this.questionForm.value;
     const newQuestion: Question = {
-      id: this.isEdit ? this.question.id : this.questionService.getNewQuestionId(),
+      id: this.isEdit ? this.question.id : this.totalquestions + 1,
       text: questionForm.text,
       type: questionForm.type,
       options: questionForm.options,

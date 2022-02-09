@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, Event as NavigationEvent } from '@angular/router';
 import { filter } from 'rxjs';
+import Survey from 'src/app/interfaces/survey';
 import { AuthService } from '../../services/auth.service';
 
 import { SurveyService } from './../../services/survey.service';
@@ -42,8 +43,9 @@ export class HeaderComponent implements OnInit {
       link,
       previewLink
     };
-    this.surveyService.addNewSurvey(newSurvey)
-    this.router.navigate(['/survey-scripting', surveyId])
+    this.surveyService.addNewSurvey(newSurvey).subscribe((survey: Survey) => {
+      this.router.navigate(['/survey-scripting', surveyId])
+    })
   }
 
   public logout(): void {

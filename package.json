@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "deploy": "ng build --prod && firebase deploy"
+    "deploy": "ng build --prod && firebase deploy",
+    "server": "json-server --watch ./server/db.json"
   },
   "private": true,
   "dependencies": {
