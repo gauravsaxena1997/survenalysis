@@ -31,11 +31,11 @@ export class HeaderComponent implements OnInit {
   }
 
   public createSurvey() {
-    const id = this.surveyService.getNewSurveyId()
-    const { link, previewLink }: any = this.surveyService.createSurveyLinks(id);
+    const surveyId = this.surveyService.getNewSurveyId()
+    const { link, previewLink }: any = this.surveyService.createSurveyLinks(surveyId);
     const newSurvey = {
-      id,
-      name: `Test Survey ${id}`,
+      id: surveyId,
+      name: `Test Survey ${surveyId}`,
       createdOn: new Date(),
       questions: [],
       responses: 0,
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
       previewLink
     };
     this.surveyService.addNewSurvey(newSurvey)
-    this.router.navigate(['/survey-scripting', id])
+    this.router.navigate(['/survey-scripting', surveyId])
   }
 
   public logout(): void {

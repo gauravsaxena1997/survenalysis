@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ToastrService } from 'src/app/services/toastr.service';
 import { AuthService } from '../../services/auth.service';
 
 interface LoginData {
@@ -12,17 +12,18 @@ interface LoginData {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   constructor(
-    private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastrService: ToastrService
   ) { }
 
-  ngOnInit(): void {
-  }
-
   public login(loginData: LoginData): void {
-    this.authService.login(loginData);
+    this.authService.login(loginData).subscribe((loginFailed: boolean) => {
+      if (loginFailed) {
+        this.toastrService.error('Invalid Credentials!', 'Please enter a valid username and password.')
+      }
+    })
   }
 }

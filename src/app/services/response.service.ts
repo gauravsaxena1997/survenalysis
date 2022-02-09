@@ -9,7 +9,7 @@ import ResponseData from '../interfaces/response';
 })
 export class ResponseService {
   private responseData: any = {
-    "1": {
+    "q22ed34": {
       "1": [
         "test1@test.com",
         "test2@test.com",
@@ -57,7 +57,7 @@ export class ResponseService {
         "Other": 1
       }
     },
-    "2": {
+    "3dd3_34n": {
       "1": {
         "Good": 2,
         "Below Average": 2,
@@ -112,7 +112,7 @@ export class ResponseService {
     }
   }
 
-  public submitResponse(surveyId: number, surveyResponse: Array<ResponseData>) {
+  public submitResponse(surveyId: string, surveyResponse: Array<ResponseData>) {
     if (!this.responseData[surveyId]) {
       // this.initResponse(surveyId);
       this.responseData[surveyId] = {};
@@ -157,7 +157,7 @@ export class ResponseService {
     localStorage.setItem(LOCALSTORAGE_KEYS['response'], JSON.stringify(this.responseData))
   }
 
-  public getResponseBySurveyId(surveyId: number): ResponseData {
+  public getResponseBySurveyId(surveyId: string): ResponseData {
     return this.responseData[surveyId];
   }
 }

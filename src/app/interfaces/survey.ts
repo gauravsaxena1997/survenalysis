@@ -1,7 +1,7 @@
 import question from './question'
 
 export default interface Survey {
-  id: number,
+  id: string,
   name: string;
   responses: number,
   createdOn: Date,

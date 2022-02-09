@@ -29,12 +29,12 @@ export class AnalyzeComponent implements OnInit {
   ngOnInit(): void {
     const surveyId: string|null = this.route.snapshot.paramMap.get('id');
     if (!surveyId) return;
-    this.survey = this.surveyService.getSurveyById(Number(surveyId));
+    this.survey = this.surveyService.getSurveyById(surveyId);
     if (!this.survey) {
       this.message = MESSAGES['SURVEY_NOT_AVAILABLE'];
       return;
     }
-    this.response = this.responseService.getResponseBySurveyId(Number(surveyId));
+    this.response = this.responseService.getResponseBySurveyId(surveyId);
     if (!this.response) {
       this.message = MESSAGES['NO_RESPONSE_YET'];
       return;

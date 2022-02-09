@@ -10,6 +10,7 @@ import { SurveyService } from '../services/survey.service';
 import { SharedService } from '../shared/shared.service';
 
 import { LOCALSTORAGE_KEYS, QUESTION_TYPES, MESSAGES } from '../shared/constants';
+import { ToastrService } from '../services/toastr.service';
 
 @Component({
   selector: 'app-survey',
@@ -28,7 +29,8 @@ export class SurveyComponent implements OnInit {
     private surveyService: SurveyService,
     private sharedService: SharedService,
     private responseService: ResponseService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -37,13 +39,13 @@ export class SurveyComponent implements OnInit {
     this.isPreview = this.route.snapshot.queryParamMap.get('preview');
 
     if (!this.isPreview) {
-      if (this.checkForAlreadyAttended(Number(surveyId))) {
+      if (this.checkForAlreadyAttended(surveyId)) {
         this.message = MESSAGES['RESPONSE_CAPTURED'];
         return;
       }
     }
 
-    this.survey = this.surveyService.getSurveyById(Number(surveyId))
+    this.survey = this.surveyService.getSurveyById(surveyId)
     if (!this.survey) {
       this.message = MESSAGES['SURVEY_NOT_AVAILABLE'];
       return;
@@ -74,6 +76,7 @@ export class SurveyComponent implements OnInit {
     })
     this.responseService.submitResponse(this.survey.id, finalData);
     this.message = MESSAGES['RESPONSE_CAPTURED'];
+    this.toastrService.success('Thanks!', 'Your response is successfully captured.')
     this.setOnLocalStorage();
   }
 
@@ -83,17 +86,17 @@ export class SurveyComponent implements OnInit {
       localStorage.setItem(LOCALSTORAGE_KEYS['attended'], JSON.stringify([this.survey.id]));
       return;
     }
-    const parsedSurveys: Array<number> = JSON.parse(attendedSurveysOfUser);
+    const parsedSurveys: Array<string> = JSON.parse(attendedSurveysOfUser);
     parsedSurveys.push(this.survey.id);
     localStorage.setItem(LOCALSTORAGE_KEYS['attended'], JSON.stringify(parsedSurveys));
   }
 
-  private checkForAlreadyAttended(surveyId: number): boolean {
+  private checkForAlreadyAttended(surveyId: string): boolean {
     const attendedSurveysOfUser: string|null = localStorage.getItem(LOCALSTORAGE_KEYS['attended']);
     if (!attendedSurveysOfUser) {
       return false;
     }
-    const parsedSurveys: Array<number> = JSON.parse(attendedSurveysOfUser);
+    const parsedSurveys: Array<string> = JSON.parse(attendedSurveysOfUser);
     return parsedSurveys.includes(surveyId);
   }
 }

@@ -33,8 +33,8 @@ export class SurveyLayoutComponent implements OnInit {
   ngOnInit(): void {
     const surveyId: string|null = this.route.snapshot.paramMap.get('id');
     if (!surveyId) return
-    this.surveyService.setActiveSurveyId(Number(surveyId))
-    this.survey = this.surveyService.getSurveyById(Number(surveyId))
+    this.surveyService.setActiveSurveyId(surveyId)
+    this.survey = this.surveyService.getSurveyById(surveyId)
     this.surveyName.setValue(this.survey.name)
     this.surveyName.valueChanges.subscribe((updatedName: string) => {
       this.surveyService.updateSurveyName(updatedName);

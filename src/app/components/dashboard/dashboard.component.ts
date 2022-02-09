@@ -21,15 +21,15 @@ export class DashboardComponent implements OnInit {
     this.surveys = this.surveyService.getSurveys();
   }
 
-  public removeSurveyById(surveyId: number): void {
+  public removeSurveyById(surveyId: string): void {
     this.surveys = this.surveyService.removeSurveyById(surveyId);
   }
 
-  public editSurveyById(surveyId: number): void {
+  public editSurveyById(surveyId: string): void {
     this.router.navigate(['/survey-scripting', surveyId]);
   }
 
-  public analyse(surveyId: number): void {
+  public analyse(surveyId: string): void {
     this.router.navigate(['/analyse', surveyId]);
   }
 

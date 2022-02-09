@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import * as shortid from 'shortid';
 
 import Survey from '../interfaces/survey';
 import { LOCALSTORAGE_KEYS } from '../shared/constants'
@@ -10,11 +11,11 @@ import { LOCALSTORAGE_KEYS } from '../shared/constants'
 export class SurveyService {
   private surveyData: Array<Survey> = [
     {
-      "id": 1,
+      "id": 'q22ed34',
       "name": "Social Impact of COVID-19 Survey",
       "createdOn": new Date("2022-01-29T14:12:11.565Z"),
-      "link": "https://survenalysis.web.app/survey/1",
-      "previewLink": "https://survenalysis.web.app/survey/1?preview=true",
+      "link": "https://survenalysis.web.app/survey/q22ed34",
+      "previewLink": "https://survenalysis.web.app/survey/q22ed34?preview=true",
       "questions": [
         {
           "id": 1,
@@ -103,11 +104,11 @@ export class SurveyService {
       "responses": 8
     },
     {
-      "id": 2,
+      "id": '3dd3_34n',
       "name": "Distance learning survey",
       "createdOn": new Date("2022-01-29T14:41:32.920Z"),
-      "link": "https://survenalysis.web.app/survey/2",
-      "previewLink": "https://survenalysis.web.app/survey/2?preview=true",
+      "link": "https://survenalysis.web.app/survey/3dd3_34n",
+      "previewLink": "https://survenalysis.web.app/survey/3dd3_34n?preview=true",
       "questions": [
         {
           "id": 1,
@@ -195,7 +196,7 @@ export class SurveyService {
   ];
 
 
-  private activeSurveyId: number = -1;
+  private activeSurveyId: string = '';
 
   constructor(private router: Router) { }
 
@@ -203,7 +204,7 @@ export class SurveyService {
     return this.surveys
   }
 
-  public setActiveSurveyId(id: number) {
+  public setActiveSurveyId(id: string) {
     this.activeSurveyId = id
   }
 
@@ -214,7 +215,7 @@ export class SurveyService {
     return this.surveyData
   }
 
-  public getSurveyById(id: number): any {
+  public getSurveyById(id: string): any {
     return this.surveys.find((survey: any) => survey.id === id)
   }
 
@@ -230,7 +231,7 @@ export class SurveyService {
     localStorage.setItem(LOCALSTORAGE_KEYS['surveys'], JSON.stringify(this.surveyData))
   }
 
-  public removeSurveyById(id: number): Array<Survey> {
+  public removeSurveyById(id: string): Array<Survey> {
     const index: number = this.surveys.findIndex((survey: Survey) => survey.id === id)
     this.surveyData.splice(index, 1);
     if (!this.surveyData.length) {
@@ -241,8 +242,8 @@ export class SurveyService {
     return this.surveyData;
   }
 
-  public getNewSurveyId(): number {
-    return this.surveys.length + 1
+  public getNewSurveyId(): string {
+    return shortid.generate()
   }
 
   public getActiveSurvey(): Survey {
@@ -271,7 +272,7 @@ export class SurveyService {
     return `${window.location.protocol}//${window.location.host}${url}`;
   }
 
-  public createSurveyLinks(surveyId: number): any {
+  public createSurveyLinks(surveyId: string): any {
     const url = this.router.serializeUrl(
       this.router.createUrlTree(['survey', surveyId])
     );
