@@ -183,5 +183,100 @@
       ],
       "responses": 5
     }
+  ],
+  "responses": [
+    {
+      "id": "q22ed34",
+      "data": {
+        "1": [
+          "test1@test.com",
+          "test2@test.com",
+          "test3@test.com",
+          "test4@test.com",
+          "test5@test.com"
+        ],
+        "2": {
+          "Less then 18": 1,
+          "40+": 2,
+          "18-40": 2
+        },
+        "4": {
+          "Yes": 2,
+          "No": 2
+        },
+        "5": [
+          "7",
+          "10",
+          "7",
+          "9",
+          "9"
+        ],
+        "6": {
+          "Decreased": 2,
+          "I don't consume tobacco": 2,
+          "No change": 1
+        },
+        "7": {
+          "Employed and currently engaged in work duties": 2,
+          "Employed, in receipt of employment income, but not carrying out work duties": 1,
+          "Unemployed": 1,
+          "Other": 1
+        },
+        "8": {
+          "Yes": 4,
+          "No": 1
+        },
+        "9": {
+          "Family, friends or colleagues": 3,
+          "Consultations with health professionals": 3,
+          "Social media, eg Twitter, Facebook, Whatsapp": 4,
+          "Television": 2,
+          "Newspapers": 1,
+          "Other": 1
+        }
+      }
+    },
+    {
+      "id": "3dd3_34n",
+      "data": {
+        "1": {
+          "Good": 2,
+          "Below Average": 2,
+          "Excellent": 1
+        },
+        "2": {
+          "Yes, but it doesn’t work well": 3,
+          "Yes": 1,
+          "No, I share with others": 1
+        },
+        "3": {
+          "Tablet": 2,
+          "Smartphone": 2,
+          "Desktop": 1
+        },
+        "4": {
+          "5-7 hours": 1,
+          "1-3 hours": 1,
+          "7-10 hours": 3
+        },
+        "5": {
+          "Moderately helpful": 3,
+          "Very helpful": 2
+        },
+        "6": {
+          "Learning portal": 3,
+          "Smart device": 5,
+          "E-Books": 4,
+          "Internet Conection": 2
+        },
+        "7": [
+          "This is a test answer.",
+          "This is again a test answer.",
+          "This is a test answer too.",
+          "Yes, again....",
+          "Test again"
+        ]
+      }
+    }
   ]
 }

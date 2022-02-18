@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import Question from '../interfaces/question';
 import Survey from '../interfaces/survey';
-import ResponseData from '../interfaces/response';
+import { ResponseData } from '../interfaces/response';
 
 import { ResponseService } from '../services/response.service';
 import { SurveyService } from '../services/survey.service';
